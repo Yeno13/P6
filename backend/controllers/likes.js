@@ -10,7 +10,7 @@ exports.likeDislikeSauce = (req, res, next) => {
                         {
                           $inc: { likes: 1 }, $push: { usersLiked: req.body.userId }
                         })
-                            .then(() => {res.status(201).json({ message: "Sauce likée" });})
+                            .then(() => {res.status(201).json({ message: "Sauce likée !" });})
                             .catch((error) => {res.status(400).json({ error: error });});
                     }
                     break;
@@ -20,7 +20,7 @@ exports.likeDislikeSauce = (req, res, next) => {
                             {
                             $inc: { dislikes: 1 }, $push: { usersDisliked: req.body.userId }, 
                         })
-                            .then(() => {res.status(201).json({ message: "Sauce dislikée" });})
+                            .then(() => {res.status(201).json({ message: "Sauce dislikée !" });})
                             .catch((error) => {res.status(400).json({ error: error });});
                     }
                     break;
@@ -30,7 +30,7 @@ exports.likeDislikeSauce = (req, res, next) => {
                         { 
                             $inc: { likes: -1 }, $pull: { usersLiked: req.body.userId },
                         })
-                            .then(() => {res.status(201).json({ message: "Retrait du like" });})
+                            .then(() => {res.status(201).json({ message: "Retrait du like !" });})
                             .catch((error) => {res.status(400).json({ error: error });});
                     }
                     if (sauce.usersDisliked.includes(req.body.userId)) {
@@ -38,7 +38,7 @@ exports.likeDislikeSauce = (req, res, next) => {
                         {
                             $inc: { dislikes: -1 }, $pull: { usersDisliked: req.body.userId }, 
                         })
-                            .then(() => {res.status(201).json({ message: "Retrait du dislike" });})
+                            .then(() => {res.status(201).json({ message: "Retrait du dislike !" });})
                             .catch((error) => {res.status(400).json({ error: error });});
                     }
                     break;
