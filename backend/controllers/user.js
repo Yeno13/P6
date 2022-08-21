@@ -1,5 +1,5 @@
 const dotenv = require("dotenv");
-dotenv.config();
+require('dotenv').config();
 const bcrypt = require('bcrypt'); // Pluggin pour hasher les mdp
 const jwt = require('jsonwebtoken'); // Pluggin pour générer un Token
 const Joi = require("joi"); // Pluggin permettant l'utilisation de Regex
@@ -27,7 +27,10 @@ exports.signup = (req, res, next) => {
             .then(() => res.status(201).json({ message: 'Utilisateur créé !' }))
             .catch(error => res.status(400).json({ error }));
         })
-        .catch(error => res.status(500).json({ error }));
+        .catch(error => {res.status(500).json
+        console.log(error)}
+        );
+        
     })
     .catch((error) => res.status(400).json({ error }));
 };
@@ -52,7 +55,9 @@ exports.login = (req, res, next) => {
                 )
             });
         })
-        .catch(error => res.status(500).json({ error }));
+        .catch(error => {res.status(500).json
+            console.log(error)});
     })
-    .catch(error => res.status(500).json({ error }));
+    .catch(error => {res.status(500).json
+        console.log(error)});
 };
