@@ -10,7 +10,7 @@ const saucesRoutes = require('./routes/sauces')
 
 const app = express();
 
-mongoose.connect(`mongodb+srv://${process.env.MONGODB_USER}:${process.env.MONGODB_PASSWORD}@${process.env.MONGODB_CLUSTER_NAME}.kvuhw.mongodb.net/${process.env.MONGODB_DATABASE_NAME}?retryWrites=true&w=majority`,
+mongoose.connect(`mongodb+srv://${process.env.MONGODB_USER}:${process.env.MONGODB_PASSWORD}@${process.env.MONGODB_CLUSTER_NAME}.85gqf.mongodb.net/?retryWrites=true&w=majority`,
         {   useNewUrlParser: true,
             useUnifiedTopology: true })
     .then(() => console.log('Connexion à MongoDB réussie !'))
