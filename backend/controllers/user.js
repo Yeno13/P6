@@ -1,23 +1,23 @@
 const dotenv = require("dotenv");
 require('dotenv').config();
-const bcrypt = require('bcrypt'); // Pluggin pour hasher les mdp
-const jwt = require('jsonwebtoken'); // Pluggin pour générer un Token
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken'); 
 const Joi = require("joi"); // Pluggin permettant l'utilisation de Regex
 
 const User = require('../models/user');
 
-const schema = Joi.object({ // On crée un schéma de regex
+const schema = Joi.object({ 
     email: Joi.string().regex(/^[a-zA-Z0-9.-_]+[@]{1}[a-zA-Z0-9.-_]+[.]{1}[a-z]{2,10}$/),
     password: Joi.string().pattern(/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[-+!*$@%_&é"'(èçà)=])([-+!*$@%_&é"'(èçà)=\w]{8,30})$/),
   });
 
 exports.signup = (req, res, next) => {
-    schema.validateAsync({ // Verification versus schéma Regex
+    schema.validateAsync({ // Verification comparé au schéma Regex
         email: req.body.email,
         password: req.body.password,
     })
     .then(() => {
-        bcrypt.hash(req.body.password, 10) // Récupération mdp à hasher avec bcrypt
+        bcrypt.hash(req.body.password, 10) // Récupération du password crypté avec Bcrypt
         .then(hash => {
             const user = new User({
             email: req.body.email,

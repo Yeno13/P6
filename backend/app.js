@@ -3,7 +3,7 @@ dotenv.config();
 const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
-const mongoSanitize = require("express-mongo-sanitize"); 
+
 
 const userRoutes = require('./routes/user')
 const saucesRoutes = require('./routes/sauces')
@@ -25,13 +25,7 @@ app.use((req, res, next) => {
     next();
 });
 
-// Autorisation de $ dans les champs, remplacés par _
-app.use(
-  mongoSanitize({
-    allowDots: true,
-    replaceWith: "_",
-  })
-);
+
 
 app.use('/images', express.static(path.join(__dirname, 'images')));
 app.use('/api/auth', userRoutes);
