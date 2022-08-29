@@ -8,7 +8,7 @@ const User = require('../models/user');
 
 const schema = Joi.object({ 
     email: Joi.string().regex(/^[a-zA-Z0-9.-_]+[@]{1}[a-zA-Z0-9.-_]+[.]{1}[a-z]{2,10}$/),
-    password: Joi.string().pattern(/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[-+!*$@%_&é"'(èçà)=])([-+!*$@%_&é"'(èçà)=\w]{8,30})$/),
+    password: Joi.string().pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,30}$/),
   });
 
 exports.signup = (req, res, next) => {
@@ -51,7 +51,7 @@ exports.login = (req, res, next) => {
                 token: jwt.sign(
                     { userId: user._id },
                     process.env.TOKEN,
-                    { expiresIn: '24h' }
+                    { expiresIn: '6h' }
                 )
             });
         })
