@@ -1,6 +1,7 @@
-const rateLimit = require("express-rate-limit"); // Importation de express-rate-limit
+const rateLimit = require("express-rate-limit");
 
-exports.passwordLimiter = rateLimit({ // Definission d'un nombre de requête max possible dans un temps donné pour le mdp
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 3, // 3 requêtes
+exports.passwordLimiter = rateLimit({ 
+  // Maximum 3 requêtes toutes les 10 minutes
+  windowMs: 10 * 60 * 1000, 
+  max: 3,
 });

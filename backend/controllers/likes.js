@@ -4,7 +4,7 @@ exports.likeDislikeSauce = (req, res, next) => {
     Sauce.findOne({_id: req.params.id})
         .then((sauce) => {
             switch (req.body.like) {
-                case 1: // On like la sauce
+                case 1: // Like de la sauce
                     if (!sauce.usersLiked.includes(req.body.userId) && req.body.like == 1) {
                       Sauce.updateOne({ _id: req.params.id },
                         {
@@ -14,7 +14,7 @@ exports.likeDislikeSauce = (req, res, next) => {
                             .catch((error) => {res.status(400).json({ error: error });});
                     }
                     break;
-                case -1: // On dislike d'une sauce
+                case -1: // Dislike de la sauce
                     if (!sauce.usersDisliked.includes(req.body.userId) && req.body.like == -1) {
                         Sauce.updateOne({ _id: req.params.id },
                             {
