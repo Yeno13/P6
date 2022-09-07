@@ -1,13 +1,18 @@
 const Sauce = require("../models/sauce");
 const fs = require("fs");
 const Joi = require("joi");
+const sauce = require("../models/sauce");
 
 exports.createSauce = (req, res, next) => {
   // Création d'une sauce
   const sauceObject = JSON.parse(req.body.sauce);
   delete sauceObject._id;
 
-  if (!sauceObject.name.trim()) {
+  if (
+    !sauceObject.name.trim() ||
+    !sauceObject.manufacturer.trim() ||
+    !sauceObject.description.trim()
+  ) {
     res.status(400).json({ message: "Erreur, le champ nom doit être rempli." });
   } else {
     const sauce = new Sauce({
@@ -39,20 +44,29 @@ exports.getOneSauce = (req, res, next) => {
 
 exports.modifySauce = (req, res, next) => {
   // Modifier une sauce
-  const sauceObject = req.file
-    ? {
-        ...JSON.parse(req.body.sauce),
-        imageUrl: `${req.protocol}://${req.get("host")}/images/${
-          req.file.filename
-        }`,
-      }
-    : { ...req.body };
-  Sauce.updateOne(
-    { _id: req.params.id },
-    { ...sauceObject, _id: req.params.id }
-  )
-    .then(() => res.status(201).json({ message: "Objet modifié !" }))
-    .catch((error) => res.status(400).json({ error: error }));
+
+  if (
+    !sauceObject.name.trim() ||
+    !sauceObject.manufacturer.trim() ||
+    !sauceObject.description.trim()
+  ) {
+    res.status(400).json({ message: "Erreur, le champ nom doit être rempli." });
+  } else {
+    const sauceObject = req.file
+      ? {
+          ...JSON.parse(req.body.sauce),
+          imageUrl: `${req.protocol}://${req.get("host")}/images/${
+            req.file.filename
+          }`,
+        }
+      : { ...req.body };
+    Sauce.updateOne(
+      { _id: req.params.id },
+      { ...sauceObject, _id: req.params.id }
+    )
+      .then(() => res.status(201).json({ message: "Objet modifié !" }))
+      .catch((error) => res.status(400).json({ error: error }));
+  }
 };
 
 exports.deleteSauce = (req, res, next) => {
